@@ -1,0 +1,539 @@
+/* Is It Good? · by Meria */
+/* Fully Responsive Design System */
+/* Supports: iPhone SE → iPhone Pro Max → Android → iPad → Desktop */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ═══════════════════════════════════════════════════════════ */
+/* CSS CUSTOM PROPERTIES - Fluid & Responsive */
+/* ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Color Palette */
+  --sky-light: #E8F4F8;
+  --sky-blue: #7BBED2;
+  --sky-azure: #5BA4C9;
+  --ocean-deep: #2E7D9B;
+  
+  --coral: #E8927C;
+  --coral-soft: #F4B8A8;
+  --sunset-gold: #D4A574;
+  --rosé: #D4A5A5;
+  
+  --cream: #FDFBF7;
+  --sand: #F5F0E8;
+  --warm-gray: #9A8F85;
+  --charcoal: #3D3D3D;
+  --soft-black: #2A2A2A;
+  
+  --matcha: #9BB068;
+  --matcha-soft: #C8D4A9;
+  
+  /* Fluid Typography Scale - clamp(min, preferred, max) */
+  --font-xs: clamp(0.625rem, 0.5rem + 0.5vw, 0.75rem);      /* 10-12px */
+  --font-sm: clamp(0.75rem, 0.7rem + 0.5vw, 0.875rem);      /* 12-14px */
+  --font-base: clamp(0.875rem, 0.8rem + 0.5vw, 1rem);       /* 14-16px */
+  --font-md: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);         /* 16-18px */
+  --font-lg: clamp(1.125rem, 1rem + 0.75vw, 1.375rem);      /* 18-22px */
+  --font-xl: clamp(1.5rem, 1.25rem + 1.5vw, 2rem);          /* 24-32px */
+  --font-2xl: clamp(1.75rem, 1.5rem + 2vw, 2.5rem);         /* 28-40px */
+  --font-3xl: clamp(2.25rem, 1.75rem + 3vw, 3.25rem);       /* 36-52px */
+  --font-hero: clamp(2.5rem, 2rem + 3.5vw, 4rem);           /* 40-64px */
+  
+  /* Fluid Spacing Scale */
+  --space-xs: clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem);      /* 4-8px */
+  --space-sm: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);       /* 8-12px */
+  --space-md: clamp(0.75rem, 0.6rem + 0.75vw, 1.25rem);     /* 12-20px */
+  --space-lg: clamp(1rem, 0.8rem + 1vw, 1.5rem);            /* 16-24px */
+  --space-xl: clamp(1.5rem, 1.25rem + 1.5vw, 2.5rem);       /* 24-40px */
+  --space-2xl: clamp(2rem, 1.5rem + 2vw, 3rem);             /* 32-48px */
+  --space-3xl: clamp(3rem, 2rem + 3vw, 5rem);               /* 48-80px */
+  
+  /* Fluid Border Radius */
+  --radius-sm: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);      /* 8-12px */
+  --radius-md: clamp(1rem, 0.8rem + 1vw, 1.5rem);           /* 16-24px */
+  --radius-lg: clamp(1.25rem, 1rem + 1.25vw, 2rem);         /* 20-32px */
+  --radius-xl: clamp(1.5rem, 1.25rem + 1.5vw, 2.5rem);      /* 24-40px */
+  --radius-full: 100px;
+  
+  /* Container widths */
+  --container-sm: min(100%, 480px);
+  --container-md: min(100%, 640px);
+  --container-lg: min(100%, 768px);
+  
+  /* Safe areas for notched phones */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* BASE RESET & DEFAULTS */
+/* ═══════════════════════════════════════════════════════════ */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--cream);
+  color: var(--charcoal);
+  line-height: 1.5;
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  min-width: 0; /* Allow shrinking */
+}
+
+/* Smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* SCROLLBAR */
+/* ═══════════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(123, 190, 210, 0.3);
+  border-radius: 2px;
+}
+
+::selection {
+  background: rgba(123, 190, 210, 0.3);
+  color: var(--soft-black);
+}
+
+:focus-visible {
+  outline: 2px solid var(--sky-blue);
+  outline-offset: 2px;
+}
+
+::placeholder {
+  color: var(--warm-gray);
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ELEMENT RESETS */
+/* ═══════════════════════════════════════════════════════════ */
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation; /* Faster tap response */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: var(--font-base);
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* APP CONTAINER - Responsive Layout */
+/* ═══════════════════════════════════════════════════════════ */
+
+#root {
+  width: 100%;
+  min-width: 0; /* Allow shrinking below content width */
+}
+
+.app {
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  width: 100%;
+  min-width: 0; /* Allow shrinking below content width */
+  max-width: 100vw; /* Never exceed viewport */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  
+  /* Safe area padding */
+  padding-top: var(--safe-top);
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+}
+
+/* Phone (default) - full width */
+/* Small phones (iPhone SE, etc) - 320px to 375px */
+@media (max-width: 375px) {
+  :root {
+    --font-hero: clamp(1.75rem, 1.5rem + 2vw, 2.25rem);
+  }
+  
+  .app {
+    max-width: 100%;
+  }
+}
+
+/* Standard phones (iPhone 12/13/14, Pixel, etc) */
+@media (min-width: 376px) and (max-width: 428px) {
+  /* Default styles work well here */
+}
+
+/* Large phones (iPhone Pro Max, large Android) */
+@media (min-width: 429px) and (max-width: 767px) {
+  .app {
+    max-width: 100%;
+  }
+}
+
+/* Tablets (iPad Mini, iPad, Android tablets) */
+@media (min-width: 768px) {
+  .app {
+    max-width: var(--container-md);
+    margin: 0 auto;
+    box-shadow: 0 0 80px rgba(123, 190, 210, 0.1);
+    border-left: 1px solid rgba(123, 190, 210, 0.08);
+    border-right: 1px solid rgba(123, 190, 210, 0.08);
+  }
+}
+
+/* Large tablets & small laptops (iPad Pro 11") */
+@media (min-width: 1024px) {
+  .app {
+    max-width: var(--container-lg);
+  }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+  .app {
+    max-width: var(--container-lg);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    margin-top: var(--space-xl);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* TYPOGRAPHY - Fluid & Responsive */
+/* ═══════════════════════════════════════════════════════════ */
+
+.font-display {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-body {
+  font-family: 'Inter', sans-serif;
+}
+
+.heading-hero {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: var(--font-hero);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.heading-xl {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: var(--font-2xl);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+.heading-lg {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: var(--font-xl);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.heading-md {
+  font-family: 'Inter', sans-serif;
+  font-size: var(--font-md);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.text-lg {
+  font-size: var(--font-lg);
+}
+
+.text-base {
+  font-size: var(--font-base);
+}
+
+.text-sm {
+  font-size: var(--font-sm);
+}
+
+.text-xs {
+  font-size: var(--font-xs);
+}
+
+.label {
+  font-family: 'Inter', sans-serif;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ANIMATIONS */
+/* ═══════════════════════════════════════════════════════════ */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-lg));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.97);
+    opacity: 0.9;
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(123, 190, 210, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(123, 190, 210, 0);
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Animation utilities */
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-breathe {
+  animation: breathe 3.5s ease-in-out infinite;
+}
+
+.animate-pageEnter {
+  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Stagger delays */
+.stagger-1 { animation-delay: 0ms; }
+.stagger-2 { animation-delay: 80ms; }
+.stagger-3 { animation-delay: 160ms; }
+.stagger-4 { animation-delay: 240ms; }
+.stagger-5 { animation-delay: 320ms; }
+
+/* ═══════════════════════════════════════════════════════════ */
+/* COMPONENTS */
+/* ═══════════════════════════════════════════════════════════ */
+
+/* Glass card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-lg);
+}
+
+/* Sky gradient backgrounds */
+.bg-sky {
+  background: linear-gradient(180deg, var(--sky-light) 0%, var(--sky-blue) 100%);
+}
+
+.bg-sunset {
+  background: linear-gradient(135deg, #E8F4F8 0%, #F4B8A8 50%, #D4A574 100%);
+}
+
+.bg-ocean {
+  background: linear-gradient(180deg, var(--sky-azure) 0%, var(--ocean-deep) 100%);
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: calc(100px + var(--safe-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--soft-black);
+  color: white;
+  border-radius: var(--radius-full);
+  font-family: 'Inter', sans-serif;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-width: calc(100% - var(--space-xl) * 2);
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* UTILITY CLASSES */
+/* ═══════════════════════════════════════════════════════════ */
+
+/* Responsive padding for screens */
+.screen-padding {
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .screen-padding {
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
+  }
+}
+
+/* Bottom nav spacing */
+.bottom-nav-spacing {
+  padding-bottom: calc(80px + var(--safe-bottom) + var(--space-lg));
+}
+
+@media (min-width: 768px) {
+  .bottom-nav-spacing {
+    padding-bottom: calc(90px + var(--safe-bottom) + var(--space-xl));
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* TOUCH & INTERACTION */
+/* ═══════════════════════════════════════════════════════════ */
+
+/* Disable text selection on interactive elements */
+button, a {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input, textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Larger touch targets on mobile */
+@media (pointer: coarse) {
+  button, a, input, select {
+    min-height: 44px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* LANDSCAPE ORIENTATION */
+/* ═══════════════════════════════════════════════════════════ */
+
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Reduce vertical spacing in landscape on phones */
+  :root {
+    --space-xl: 1rem;
+    --space-2xl: 1.5rem;
+  }
+  
+  .bottom-nav-spacing {
+    padding-bottom: calc(70px + var(--safe-bottom));
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* DARK MODE SUPPORT (Future-proofing) */
+/* ═══════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+  /* Placeholder for dark mode - currently keeping light theme */
+  /* Can be enabled later */
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* PRINT STYLES */
+/* ═══════════════════════════════════════════════════════════ */
+
+@media print {
+  .app {
+    background: white;
+  }
+  
+  nav, button, .toast {
+    display: none !important;
+  }
+}
